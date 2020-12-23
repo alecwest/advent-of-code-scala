@@ -20,21 +20,26 @@ case class UnsupportedObstacle(msg: String) extends Exception(msg)
   * Day 3
   */
 object TobogganTrajectory {
+  def productMultipleSlopes(input: IndexedSeq[String],
+                            slopes: List[(Int, Int)] = List(3 -> 1)): Long = {
+    slopes.map(pair => numTreesHit(input, pair._1, pair._2)).product
+  }
+
   def numTreesHit(input: IndexedSeq[String],
                   slopeRight: Int = 3,
-                  slopeDown: Int = 1): Int = {
+                  slopeDown: Int = 1): Long = {
     val map = buildMap(input)
-    if (map.isEmpty) return 0
+    if (map.isEmpty || map(0).isEmpty) return 0
 
     val rowLength = map(0).length
     var colNumber = 0
     var rowNumber = 0
-    var count = 0
+    var count: Long = 0
     while (rowNumber < map.length) {
       map(rowNumber)(colNumber) match {
         case Open =>
         case Tree => count = count + 1
-        case bad => throw new Exception(s"Unexpected object in map: $bad")
+        case bad  => throw new Exception(s"Unexpected object in map: $bad")
       }
       rowNumber = rowNumber + slopeDown
       colNumber = (colNumber + slopeRight) % rowLength
