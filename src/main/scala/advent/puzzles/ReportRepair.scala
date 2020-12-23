@@ -4,7 +4,7 @@ package advent.puzzles
 /**
  * Day 1
  */
-object SumTo {
+object ReportRepair {
   def calculate(input: IndexedSeq[Int], numbersToSum: Int = 2, targetSum: Int = 2020): Int = {
     input
       .combinations(numbersToSum)
