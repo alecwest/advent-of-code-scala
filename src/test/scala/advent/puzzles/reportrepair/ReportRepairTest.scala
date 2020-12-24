@@ -1,7 +1,8 @@
 package com.alecnwest
-package advent.puzzles
+package advent.puzzles.reportrepair
 
-import com.alecnwest.advent.utils.InputParser
+import advent.utils.InputParser
+
 import org.scalatest.{Matchers, WordSpecLike}
 
 class ReportRepairTest extends WordSpecLike with Matchers {

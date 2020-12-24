@@ -1,5 +1,5 @@
 package com.alecnwest
-package advent.puzzles
+package advent.puzzles.reportrepair
 
 /**
  * Day 1
