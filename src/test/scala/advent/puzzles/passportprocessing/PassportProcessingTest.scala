@@ -1,4 +1,6 @@
 package com.alecnwest
+
+
 package advent.puzzles.passportprocessing
 
 import com.alecnwest.advent.utils.InputParser
