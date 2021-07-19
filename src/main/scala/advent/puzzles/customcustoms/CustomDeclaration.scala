@@ -10,8 +10,13 @@ object CustomDeclaration {
 }
 
 sealed case class CustomDeclarationGroup(declarations: IndexedSeq[CustomDeclaration]) {
-  def collectAnswers(): Set[Char] = {
-    declarations.flatMap(_.answeredYes).toSet
+  def collectAnswers(allShouldAnswerYes: Boolean = false): Set[Char] = {
+    val answers = declarations.flatMap(_.answeredYes).toSet
+    if (allShouldAnswerYes) {
+      answers.filter(answer => declarations.forall(_.answeredYes.contains(answer)))
+    } else {
+      answers
+    }
   }
 }
 
