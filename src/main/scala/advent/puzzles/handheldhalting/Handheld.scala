@@ -28,7 +28,7 @@ class Handheld(val instructions: IndexedSeq[Instruction]) {
   private var pc = 0
 
   def runInstruction(): Boolean = {
-    if (!instructionHistory.add(pc)) {
+    if (programCompleted() || !instructionHistory.add(pc)) {
       return false
     }
     instructions(pc) match {
@@ -41,5 +41,9 @@ class Handheld(val instructions: IndexedSeq[Instruction]) {
       case _ => throw new Exception(s"cannot parse given instruction")
     }
     true
+  }
+
+  def programCompleted(): Boolean = {
+    pc >= instructions.length
   }
 }
