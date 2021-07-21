@@ -1,5 +1,12 @@
-.bsp
+# scala
 target
-project
-.idea
+*.class
 
+# intellij
+*.iml
+*.ipr
+*.iws
+.idea
+out
+
+.bsp
