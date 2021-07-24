@@ -49,6 +49,8 @@ object InputParser {
 
     implicit val intLoader: Converter[Int] = (target: String) => target.toInt
 
+    implicit val bigIntLoader: Converter[BigInt] = (target: String) => BigInt(target)
+
     implicit val floatLoader: Converter[Float] = (target: String) => target.toFloat
 
     implicit val doubleLoader: Converter[Double] = (target: String) => target.toDouble
