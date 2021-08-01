@@ -1,7 +1,7 @@
 package com.alecnwest
 package com.alecnwest.advent.puzzles.adapterarray
 
-import com.alecnwest.advent.utils.InputParser
+import advent.utils.InputParser
 import org.scalatest.{Matchers, WordSpecLike}
 
 class AdapterArrayTest extends WordSpecLike with Matchers {
