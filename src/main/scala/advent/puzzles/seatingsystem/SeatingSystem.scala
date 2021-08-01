@@ -19,6 +19,41 @@ case object Floor extends GridItem {
 
 sealed case class SeatingGrid(seatingArray: IndexedSeq[IndexedSeq[GridItem]])
 
+sealed trait Strategy {
+  val maxSeats: Int
+  def replaceSeat(grid: SeatingGrid, row: Int, col: Int): GridItem
+}
+
+/**
+ * Check immediately adjacent to the current seat
+ */
+case object AdjacentSeats extends Strategy {
+  val maxSeats = 4
+  def replaceSeat(grid: SeatingGrid, row: Int, col: Int): GridItem = {
+    val seat = grid.seatingArray(row)(col)
+    SeatingGrid.countAdjacentFullSeats(grid, row, col) match {
+      case x if x >= maxSeats => if (seat.symbol == FullSeat.symbol) EmptySeat else seat
+      case 0 => if (seat.symbol == EmptySeat.symbol) FullSeat else seat
+      case _ => seat
+    }
+  }
+}
+
+/**
+ * Check next available seat in each direction
+ */
+case object NextSeats extends Strategy {
+  val maxSeats = 5
+  def replaceSeat(grid: SeatingGrid, row: Int, col: Int): GridItem = {
+    val seat = grid.seatingArray(row)(col)
+    SeatingGrid.countNextFullSeats(grid, row, col) match {
+      case x if x >= maxSeats => if (seat.symbol == FullSeat.symbol) EmptySeat else seat
+      case 0 => if (seat.symbol == EmptySeat.symbol) FullSeat else seat
+      case _ => seat
+    }
+  }
+}
+
 object SeatingGrid {
   def fromMultiLineString(s: IndexedSeq[String]): Option[SeatingGrid] = {
     Some(SeatingGrid(s.map(row => {
@@ -30,37 +65,54 @@ object SeatingGrid {
       }.toIndexedSeq
     })))
   }
-  
+
   def countAdjacentFullSeats(grid: SeatingGrid, row: Int, col: Int): Int = {
+    countFullSeats(grid, row, col, None)
+  }
+
+  def countNextFullSeats(grid: SeatingGrid, row: Int, col: Int): Int = {
+    val condition = (item: Option[GridItem]) => {
+      if (item.isDefined) {
+        item.get.symbol == Floor.symbol
+      } else false
+    }
+    countFullSeats(grid, row, col, Some(condition))
+  }
+
+  def countFullSeats(grid: SeatingGrid, row: Int, col: Int, condition: Option[Option[GridItem] => Boolean] = None): Int = {
     Array(
-      north(grid, row, col),
-      south(grid, row, col),
-      east(grid, row, col),
-      west(grid, row, col),
-      northEast(grid, row, col),
-      northWest(grid, row, col),
-      southEast(grid, row, col),
-      southWest(grid, row, col)
+      north(grid, row, col, condition),
+      south(grid, row, col, condition),
+      east(grid, row, col, condition),
+      west(grid, row, col, condition),
+      northEast(grid, row, col, condition),
+      northWest(grid, row, col, condition),
+      southEast(grid, row, col, condition),
+      southWest(grid, row, col, condition)
     ).flatten.count((item: GridItem) => item.symbol == FullSeat.symbol)
   }
   
-  def north(grid: SeatingGrid, row: Int, col: Int): Option[GridItem] = tryGet(grid, row-1, col)
-  def south(grid: SeatingGrid, row: Int, col: Int): Option[GridItem] = tryGet(grid, row+1, col)
-  def east(grid: SeatingGrid, row: Int, col: Int): Option[GridItem] = tryGet(grid, row, col+1)
-  def west(grid: SeatingGrid, row: Int, col: Int): Option[GridItem] = tryGet(grid, row, col-1)
-  def northEast(grid: SeatingGrid, row: Int, col: Int): Option[GridItem] = tryGet(grid, row-1, col+1)
-  def northWest(grid: SeatingGrid, row: Int, col: Int): Option[GridItem] = tryGet(grid, row-1, col-1)
-  def southEast(grid: SeatingGrid, row: Int, col: Int): Option[GridItem] = tryGet(grid, row+1, col+1)
-  def southWest(grid: SeatingGrid, row: Int, col: Int): Option[GridItem] = tryGet(grid, row+1, col-1)
-  private def tryGet(grid: SeatingGrid, row: Int, col: Int): Option[GridItem] = try {
-    Some(grid.seatingArray(row)(col))
+  def north(grid: SeatingGrid, row: Int, col: Int, condition: Option[Option[GridItem] => Boolean] = None): Option[GridItem] = tryGet(grid, row, col, (r, c) => (r-1, c), condition)
+  def south(grid: SeatingGrid, row: Int, col: Int, condition: Option[Option[GridItem] => Boolean] = None): Option[GridItem] = tryGet(grid, row, col, (r, c) => (r+1, c), condition)
+  def east(grid: SeatingGrid, row: Int, col: Int, condition: Option[Option[GridItem] => Boolean] = None): Option[GridItem] = tryGet(grid, row, col, (r, c) => (r, c+1), condition)
+  def west(grid: SeatingGrid, row: Int, col: Int, condition: Option[Option[GridItem] => Boolean] = None): Option[GridItem] = tryGet(grid, row, col, (r, c) => (r, c-1), condition)
+  def northEast(grid: SeatingGrid, row: Int, col: Int, condition: Option[Option[GridItem] => Boolean] = None): Option[GridItem] = tryGet(grid, row, col, (r, c) => (r-1, c+1), condition)
+  def northWest(grid: SeatingGrid, row: Int, col: Int, condition: Option[Option[GridItem] => Boolean] = None): Option[GridItem] = tryGet(grid, row, col, (r, c) => (r-1, c-1), condition)
+  def southEast(grid: SeatingGrid, row: Int, col: Int, condition: Option[Option[GridItem] => Boolean] = None): Option[GridItem] = tryGet(grid, row, col, (r, c) => (r+1, c+1), condition)
+  def southWest(grid: SeatingGrid, row: Int, col: Int, condition: Option[Option[GridItem] => Boolean] = None): Option[GridItem] = tryGet(grid, row, col, (r, c) => (r+1, c-1), condition)
+  private def tryGet(grid: SeatingGrid, row: Int, col: Int, transform: (Int, Int) => (Int, Int), condition: Option[Option[GridItem] => Boolean]): Option[GridItem] = try {
+    var location = transform(row, col)
+    while (condition.isDefined && condition.get.apply(Some(grid.seatingArray(location._1)(location._2)))) {
+      location = transform(location._1, location._2)
+    }
+    Some(grid.seatingArray(location._1)(location._2))
   } catch {
     case _: Throwable => None
   }
 }
 
 object SeatingSystem {
-  def fillSeats(input: IndexedSeq[String]): Int = {
+  def fillSeats(input: IndexedSeq[String], strategy: Strategy = AdjacentSeats): Int = {
     var seatingChart = SeatingGrid.fromMultiLineString(input).get
     var previousOccupiedCount = -1
     var currentOccupiedCount = 0
@@ -68,12 +120,7 @@ object SeatingSystem {
       seatingChart = SeatingGrid(seatingChart.seatingArray.zipWithIndex map {
         case (row, rowIndex) =>
           row.zipWithIndex map {
-            case (seat, columnIndex) =>
-              SeatingGrid.countAdjacentFullSeats(seatingChart, rowIndex, columnIndex) match {
-                case x if x >= 4 => if (seat.symbol == FullSeat.symbol) EmptySeat else seat
-                case 0 => if (seat.symbol == EmptySeat.symbol) FullSeat else seat
-                case _ => seat
-              }
+            case (_, columnIndex) => strategy.replaceSeat(seatingChart, rowIndex, columnIndex)
           }
       })
       previousOccupiedCount = currentOccupiedCount
