@@ -1,10 +1,10 @@
-package com.alecnwest
 package advent.puzzles.handyhaversacks
 
-import com.alecnwest.advent.utils.InputParser
-import org.scalatest.{Matchers, WordSpecLike}
+import advent.utils.InputParser
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
-class HandyHaversacksTest extends WordSpecLike with Matchers {
+class HandyHaversacksTest extends AnyWordSpec with Matchers {
 
   "HandyHaversacksTest" when {
     "countValidBags" should {

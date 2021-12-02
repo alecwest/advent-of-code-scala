@@ -1,5 +1,4 @@
-package com.alecnwest
-package com.alecnwest.advent.puzzles.adapterarray
+package advent.puzzles.adapterarray
 import scala.collection.mutable
 
 object AdapterArray {

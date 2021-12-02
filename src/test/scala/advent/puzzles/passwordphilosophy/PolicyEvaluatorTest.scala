@@ -1,9 +1,9 @@
-package com.alecnwest
 package advent.puzzles.passwordphilosophy
 
-import org.scalatest.{Matchers, WordSpecLike}
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
-class PolicyEvaluatorTest extends WordSpecLike with Matchers {
+class PolicyEvaluatorTest extends AnyWordSpec with Matchers {
   "PasswordPolicy" when {
     SledRentalPolicyEvaluator.getClass.getSimpleName should {
       "return true" in {

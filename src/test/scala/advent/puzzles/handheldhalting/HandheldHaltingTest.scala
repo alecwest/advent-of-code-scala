@@ -1,10 +1,10 @@
-package com.alecnwest
 package advent.puzzles.handheldhalting
 
-import com.alecnwest.advent.utils.InputParser
-import org.scalatest.{Matchers, WordSpecLike}
+import advent.utils.InputParser
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
-class HandheldHaltingTest extends WordSpecLike with Matchers {
+class HandheldHaltingTest extends AnyWordSpec with Matchers {
 
   "HandheldHaltingTest" when {
     "accumulateUntilHalt" should {

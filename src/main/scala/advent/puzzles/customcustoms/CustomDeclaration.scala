@@ -1,4 +1,3 @@
-package com.alecnwest
 package advent.puzzles.customcustoms
 
 sealed case class CustomDeclaration(answeredYes: Set[Char])

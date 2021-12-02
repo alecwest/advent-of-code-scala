@@ -1,4 +1,3 @@
-package com.alecnwest
 package advent.puzzles.passportprocessing
 
 import scala.util.control.NonFatal

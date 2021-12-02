@@ -10,3 +10,7 @@ target
 out
 
 .bsp
+
+# vscode
+.metals
+metals.sbt

@@ -2,22 +2,13 @@ name := "advent-of-code-2020"
 
 version := "0.1"
 
-scalaVersion := "2.13.4"
-
-idePackagePrefix := Some("com.alecnwest")
-
-val AkkaVersion = "2.6.8"
-val AkkaHttpVersion = "10.2.2"
+scalaVersion := "3.1.0"
 
 // Build dependencies
 libraryDependencies ++= Seq(
-  "com.typesafe.akka" %% "akka-actor-typed" % AkkaVersion,
-  "com.typesafe.akka" %% "akka-stream" % AkkaVersion,
-  "com.typesafe.akka" %% "akka-http" % AkkaHttpVersion,
-  "com.typesafe.akka" %% "akka-http-spray-json" % AkkaHttpVersion,
-  "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2",
-  "io.monix" %% "monix" % "3.3.0"
+  "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.0",
+  "io.monix" %% "monix" % "3.4.0"
 )
 
 // Test dependencies
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.8" % Test
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.10" % Test

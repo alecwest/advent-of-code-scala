@@ -1,9 +1,9 @@
-package com.alecnwest
 package advent.utils
 
-import org.scalatest.{Matchers, WordSpecLike}
+import org.scalatest.wordspec.AnyWordSpecLike
+import org.scalatest.matchers.should.Matchers
 
-class InputParserTest extends WordSpecLike with Matchers {
+class InputParserTest extends AnyWordSpecLike with Matchers {
 
   "InputParser" should {
     "parse an input of string values" in {

@@ -1,4 +1,3 @@
-package com.alecnwest
 package advent.utils
 
 import scala.reflect.ClassTag

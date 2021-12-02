@@ -1,4 +1,3 @@
-package com.alecnwest
 package advent
 
 object Main extends App {

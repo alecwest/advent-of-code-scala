@@ -1,4 +1,3 @@
-package com.alecnwest
 package advent.puzzles.seatingsystem
 
 sealed trait GridItem {

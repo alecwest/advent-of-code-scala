@@ -1,4 +1,3 @@
-package com.alecnwest
 package advent.puzzles.toboggantrajectory
 
 sealed trait Obstacle {
@@ -39,7 +38,6 @@ object TobogganTrajectory {
       map(rowNumber)(colNumber) match {
         case Open =>
         case Tree => count = count + 1
-        case bad  => throw new Exception(s"Unexpected object in map: $bad")
       }
       rowNumber = rowNumber + slopeDown
       colNumber = (colNumber + slopeRight) % rowLength

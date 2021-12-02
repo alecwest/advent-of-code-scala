@@ -1,11 +1,11 @@
-package com.alecnwest
 package advent.puzzles.passwordphilosophy
 
 import advent.utils.InputParser
 
-import org.scalatest.{Matchers, WordSpecLike}
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
-class PasswordPhilosophyTest extends WordSpecLike with Matchers {
+class PasswordPhilosophyTest extends AnyWordSpec with Matchers {
 
   "PasswordPhilosophyTest" should {
     "countValidPasswords" in {

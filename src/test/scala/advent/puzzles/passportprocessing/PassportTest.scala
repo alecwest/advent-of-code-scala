@@ -1,10 +1,10 @@
-package com.alecnwest
 package advent.puzzles.passportprocessing
 
-import com.alecnwest.advent.utils.InputParser
-import org.scalatest.{Matchers, WordSpecLike}
+import advent.utils.InputParser
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
-class PassportTest extends WordSpecLike with Matchers {
+class PassportTest extends AnyWordSpec with Matchers {
 
   val validPassport = Passport(1997, 2016, 2025, "72in", "#ade069", "grn", "012345678", Some("USA"))
 

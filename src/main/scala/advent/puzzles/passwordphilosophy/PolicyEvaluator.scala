@@ -1,4 +1,3 @@
-package com.alecnwest
 package advent.puzzles.passwordphilosophy
 
 final case class PasswordPolicy(numberOne: Int, numberTwo: Int, letter: Char)

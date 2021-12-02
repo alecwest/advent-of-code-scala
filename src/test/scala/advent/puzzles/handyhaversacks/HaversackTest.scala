@@ -1,9 +1,9 @@
-package com.alecnwest
 package advent.puzzles.handyhaversacks
 
-import org.scalatest.{Matchers, WordSpecLike}
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
-class HaversackTest extends WordSpecLike with Matchers {
+class HaversackTest extends AnyWordSpec with Matchers {
 
   "HaversackTest" when {
     "fromString" should {

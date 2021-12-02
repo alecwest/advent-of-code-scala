@@ -1,10 +1,10 @@
-package com.alecnwest
 package advent.puzzles.customcustoms
 
-import com.alecnwest.advent.utils.InputParser
-import org.scalatest.{Matchers, WordSpecLike}
+import advent.utils.InputParser
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
-class CustomCustomsTest extends WordSpecLike with Matchers {
+class CustomCustomsTest extends AnyWordSpec with Matchers {
 
   "CustomCustomsTest" when {
     "sumGroupCounts" should {

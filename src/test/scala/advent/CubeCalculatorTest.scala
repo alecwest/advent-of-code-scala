@@ -1,9 +1,9 @@
-package com.alecnwest
 package advent
 
-import org.scalatest.{Matchers, WordSpecLike}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class CubeCalculatorTest extends WordSpecLike with Matchers {
+class CubeCalculatorTest extends AnyWordSpec with Matchers {
 
   "CubeCalculatorTest" should {
     "cube" in {

@@ -1,15 +1,13 @@
-package com.alecnwest
-
-
 package advent.puzzles.passportprocessing
 
-import com.alecnwest.advent.utils.InputParser
-import org.scalatest.{Matchers, WordSpecLike}
+import advent.utils.InputParser
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
 /**
   * TODO add Mock for Passport object?
   */
-class PassportProcessingTest extends WordSpecLike with Matchers {
+class PassportProcessingTest extends AnyWordSpec with Matchers {
 
   "PassportProcessingTest" should {
     "isValidPassport" should {

@@ -1,10 +1,10 @@
-package com.alecnwest
 package advent.puzzles.seatingsystem
 
 import advent.utils.InputParser
-import org.scalatest.{Matchers, WordSpecLike}
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
-class SeatingSystemTest extends WordSpecLike with Matchers {
+class SeatingSystemTest extends AnyWordSpec with Matchers {
 
   "SeatingSystemTest" when {
     "fillSeats" when {

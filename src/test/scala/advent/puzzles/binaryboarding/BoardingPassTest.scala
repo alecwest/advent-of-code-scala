@@ -1,9 +1,9 @@
-package com.alecnwest
 package advent.puzzles.binaryboarding
 
-import org.scalatest.{Matchers, WordSpecLike}
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
-class BoardingPassTest extends WordSpecLike with Matchers {
+class BoardingPassTest extends AnyWordSpec with Matchers {
 
   "BoardingPassTest" when {
     "fromString" should {

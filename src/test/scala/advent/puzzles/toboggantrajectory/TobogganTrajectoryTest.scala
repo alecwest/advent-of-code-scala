@@ -1,10 +1,10 @@
-package com.alecnwest
 package advent.puzzles.toboggantrajectory
 
-import com.alecnwest.advent.utils.InputParser
-import org.scalatest.{Matchers, WordSpecLike}
+import advent.utils.InputParser
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
-class TobogganTrajectoryTest extends WordSpecLike with Matchers {
+class TobogganTrajectoryTest extends AnyWordSpec with Matchers {
 
   "TobogganTrajectoryTest" when {
     def exampleInput = InputParser.parse[String](

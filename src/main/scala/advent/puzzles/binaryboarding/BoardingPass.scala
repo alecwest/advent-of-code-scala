@@ -1,4 +1,3 @@
-package com.alecnwest
 package advent.puzzles.binaryboarding
 
 import scala.util.control.NonFatal

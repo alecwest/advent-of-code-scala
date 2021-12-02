@@ -1,11 +1,11 @@
-package com.alecnwest
 package advent.puzzles.reportrepair
 
 import advent.utils.InputParser
 
-import org.scalatest.{Matchers, WordSpecLike}
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
-class ReportRepairTest extends WordSpecLike with Matchers {
+class ReportRepairTest extends AnyWordSpec with Matchers {
 
   "ReportRepairTest" should {
     "calculate product of 2 numbers summing to 2020" in {

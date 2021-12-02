@@ -1,10 +1,10 @@
-package com.alecnwest
-package com.alecnwest.advent.puzzles.adapterarray
+package advent.puzzles.adapterarray
 
 import advent.utils.InputParser
-import org.scalatest.{Matchers, WordSpecLike}
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
-class AdapterArrayTest extends WordSpecLike with Matchers {
+class AdapterArrayTest extends AnyWordSpec with Matchers {
 
   "AdapterArrayTest" when {
     "product1And3Differences" should {
