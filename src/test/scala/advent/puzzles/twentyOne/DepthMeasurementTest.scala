@@ -11,14 +11,36 @@ class DepthMeasurementTests extends AnyWordSpec with Matchers {
     "measure" should {
       "return the number of increases in a series of measurements" in {
         DepthMeasurement.measure(
-          InputParser.parse[Int]("199\n200\n208\n210\n200\n207\n240\n269\n260\n263")
+          InputParser.parse[Int](
+            "199\n200\n208\n210\n200\n207\n240\n269\n260\n263"
+          )
         ) should be(7)
       }
-     
+
       "return the number of increases in a series of measurements with larger input" in {
         DepthMeasurement.measure(
-          InputParser.parse[Int](Source.fromResource("twentyOne/DepthMeasurement.txt").mkString)
+          InputParser.parse[Int](
+            Source.fromResource("twentyOne/DepthMeasurement.txt").mkString
+          )
         ) should be(1521)
+      }
+    }
+
+    "measureSlidingWindow" should {
+      "return the number of increases in a series of measurements" in {
+        DepthMeasurement.measureSlidingWindow(
+          InputParser.parse[Int](
+            "199\n200\n208\n210\n200\n207\n240\n269\n260\n263"
+          )
+        ) should be(5)
+      }
+
+      "return the number of increases in a series of measurements with larger input" in {
+        DepthMeasurement.measureSlidingWindow(
+          InputParser.parse[Int](
+            Source.fromResource("twentyOne/DepthMeasurement.txt").mkString
+          )
+        ) should be(1543)
       }
     }
   }
