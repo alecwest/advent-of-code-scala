@@ -1,4 +1,4 @@
-package advent.puzzles.twentyOne
+package advent.puzzles.twentyOne.depthmeasurement
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers

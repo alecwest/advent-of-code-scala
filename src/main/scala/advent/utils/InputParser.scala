@@ -9,6 +9,11 @@ import scala.reflect.ClassTag
 object InputParser {
   /**
    * Read simple input that should be split by newline only
+   * i.e.
+   * line1
+   * line2
+   * line3
+   * etc...
    */
   def parse[A:ClassTag](input: String)(implicit converter: Converter[A]): IndexedSeq[A] = {
     mapToSeq[A](input.split("\\s*\\n"))
@@ -16,6 +21,9 @@ object InputParser {
 
   /**
    * Read input that should be split by all spaces or newlines
+   * i.e.
+   * val1 val2 val3
+   * val4 val5 val6 val7 etc...
    */
   def parseLine[A:ClassTag](input: String)(implicit converter: Converter[A]): IndexedSeq[A] = {
     mapToSeq[A](input.split("(\\s+|\\s*\\n)"))
@@ -25,7 +33,14 @@ object InputParser {
    * Read input that can span multiple lines and consist of multiple entries per "input"
    *
    * Each "input" is divided by 2+ newlines
-   * i.e. Passport Processing
+   * i.e.
+   * val1 val2
+   * val3 val4
+   * 
+   * val5 val6
+   * val7 val8
+   * 
+   * etc...
    */
   def parseMultiLine[A:ClassTag](input: String)(implicit converter: Converter[A]): IndexedSeq[A] = {
     mapToSeq[A](input.split("\\s*\\n{2,}"))
