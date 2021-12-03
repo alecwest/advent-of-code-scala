@@ -40,7 +40,7 @@ class DiveTest extends AnyWordSpec with Matchers {
           InputParser.parse(
             Source.fromResource("twentyOne/Dive.txt").mkString
           )
-        ) should be(2117664)
+        ) should be(2073416724)
       }
     }
   }
