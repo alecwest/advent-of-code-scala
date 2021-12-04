@@ -1,4 +1,4 @@
-package advent.puzzles.twentyOne
+package advent.puzzles.twentyOne.day3
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
