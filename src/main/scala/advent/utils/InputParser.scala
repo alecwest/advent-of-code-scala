@@ -8,6 +8,15 @@ import scala.reflect.ClassTag
  */
 object InputParser {
   /**
+   * Read simple CSV input
+   * i.e.
+   * a,b,c,d,e,etc...
+   */
+  def parseSingleLine[A:ClassTag](input: String)(implicit converter: Converter[A]): IndexedSeq[A] = {
+    mapToSeq[A](input.split(","))
+  }
+
+  /**
    * Read simple input that should be split by newline only
    * i.e.
    * line1
