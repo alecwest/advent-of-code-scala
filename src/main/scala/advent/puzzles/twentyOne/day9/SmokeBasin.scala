@@ -26,58 +26,6 @@ object SmokeBasin {
   }
 
   def part2(input: IndexedSeq[String]): Int = {
-    val basinMap = input.map(row => {
-      val arr = new ArrayBuffer[Int]()
-      arr.insertAll(
-        0,
-        row.split("").map(p => (if (p == "9") -1 else 0)).toArray
-      )
-      arr
-    })
-    var basinCounter = 0
-    for (i <- 0 until basinMap.length) {
-      for (j <- 0 until basinMap(i).length) {
-        if (basinMap(i)(j) != -1) {
-          val adjacent = new ListBuffer[Int]()
-          adjacent.appendAll(
-            getAdjacentValues(basinMap.map(_.toIndexedSeq), Point(i, j))
-          )
-          if (i > 0) {
-            val numInRow = basinMap(i).drop(j + 1).takeWhile(_ != -1).length
-            // basinMap(i - 1).drop(j).take(numInRow)
-            for (n <- 1 to numInRow) {
-              adjacent.append(
-                basinMap(i - 1)(j + n)
-              )
-            }
-          }
-
-          // delete these
-          // if (i > 0 && Try(basinMap(i)(j - 1)).getOrElse(-1) != -1) {
-          // adjacent.append(basinMap(i - 1)(j - 1))
-          // }
-          // if (i > 0 && Try(basinMap(i)(j + 1)).getOrElse(-1) != -1) {
-          // adjacent.append(basinMap(i - 1)(j + 1))
-          // }
-          val max = Try(adjacent.toList.max).getOrElse(-1)
-          if (max <= 0) {
-            basinCounter += 1
-            basinMap(i)(j) = basinCounter
-          } else {
-            basinMap(i)(j) = max
-          }
-        }
-      }
-    }
-    basinMap.flatten.toList
-      .groupBy(identity)
-      .filterNot(_._1 == -1)
-      .map(_._2.size)
-      .takeRight(3)
-      .product
-  }
-
-  def part22(input: IndexedSeq[String]): Int = {
     val basinPoints = Map.empty[Int, Set[Point]]
     val basinMap = input.zipWithIndex
       .map((row, i) => {

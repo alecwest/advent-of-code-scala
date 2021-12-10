@@ -24,22 +24,22 @@ class SmokeBasinTest extends AnyWordSpec with Matchers {
     }
 
     "part2" in {
-      SmokeBasin.part22(
+      SmokeBasin.part2(
         InputParser.parse("2199943210\n3987894921\n9856789892\n8767896789\n9899965678")
       ) should be(1134)
-      SmokeBasin.part22(
+      SmokeBasin.part2(
         InputParser.parse("2199943910\n3987894021\n9856789892\n8767896789\n9899965678")
       ) should be(756)
-      SmokeBasin.part22(
+      SmokeBasin.part2(
         InputParser.parse("2199943210\n3987894921\n9856789892\n8767899789\n9899965678")
       ) should be(1008)
-      SmokeBasin.part22(
+      SmokeBasin.part2(
       InputParser.parse("2199943210\n3987894921\n9999789892\n8767896789\n9899965678")
       ) should be(891)
     }
 
     "part2 more input" in {
-      SmokeBasin.part22(
+      SmokeBasin.part2(
         InputParser.parse(
           Source.fromResource("twentyOne/day9.txt").mkString
         )
