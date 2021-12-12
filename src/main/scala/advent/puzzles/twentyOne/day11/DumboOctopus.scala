@@ -58,16 +58,6 @@ object DumboOctopus {
         .asInstanceOf[Grid[Int]]
     }
 
-    def traverse(
-        current: Point,
-        accumulator: Set[Point] = Set.empty
-    ): Set[Point] = {
-      current.neighbors.foldLeft(accumulator)((results, next) => {
-        if (results.contains(next)) results
-        else traverse(next, results + current)
-      }) + current
-    }
-
     def setAll(
         value: Int = 0,
         condition: ((Point, Int)) => Boolean = (p) => true

@@ -6,7 +6,7 @@ import advent.utils.InputParser
 import scala.io.Source
 
 class TemplateTest extends AnyWordSpec with Matchers {
-  // "TemplateTest" when {
+  // "Template" when {
   //   "part1" in {
   //     Template.part1(
   //       InputParser.parse(
