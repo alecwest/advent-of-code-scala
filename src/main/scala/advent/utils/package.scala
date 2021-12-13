@@ -7,6 +7,14 @@ package object utils {
   case class Line(start: Point, end: Point)
   opaque type Grid[A] <: Map[Point, A] = Map[Point, A]
 
+  /**
+   * Convert to grid given matrix of input
+   * i.e.
+   * 223
+   * 345
+   * 013
+   * etc...
+   */
   def toGrid[A](
       input: IndexedSeq[String]
   )(implicit converter: Converter[A]): Grid[A] = {
@@ -18,6 +26,27 @@ package object utils {
           .map((col, j) => (Point(i, j), converter.convert(col)))
       )
       .toMap
+  }
+
+  /**
+   * Convert to grid given series of points
+   * i.e.
+   * 691,418
+   * 507,283
+   * 371,371
+   * 21,710
+   * etc...
+   * 
+   * y = row, x = col
+   */
+  def toGridFromPoints[A](
+    input: IndexedSeq[String], 
+    pointValue: String = "#" // TODO probably could be dynamically set
+  )(implicit converter: Converter[A]): Grid[A] = {
+    input.map(point => {
+      val coords = point.split(",")
+      (Point(coords(1).toInt, coords(0).toInt), converter.convert(pointValue))
+    }).toMap
   }
 
   extension (point: Point)
