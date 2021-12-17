@@ -8,25 +8,63 @@ object PacketDecoder {
 
     println(binary)
 
-    def parse(input: String, accumulator: Int = 0): (Int, Int) = { // bits parsed, return value
+    def parse(input: String, accumulator: Int = 0): (Int, Int, List[BigInt]) = { // bits parsed, version, parsed values
       println(s"parse $input with accumulator $accumulator")
 
-      def parseLiteral(input: String): (Int, Int) = { // (bits parsed, literal value)
+      def parseLiteral(input: String): (Int, Int, List[BigInt]) = { // (bits parsed, literal value)
         println(s"parseLiteral $input")
         val grouped = input.grouped(5).toList
         val numGroups =
           (grouped.zipWithIndex.find(_._1.charAt(0) == '0').get._2 + 1)
         val literal =
           BigInt(grouped.take(numGroups).map(_.tail).mkString, 2)
-        (numGroups * 5 + 6, 0)
+        (numGroups * 5, 0, List(literal))
+      }
+
+      def parseNonLiteral(input: String): (Int, Int, List[BigInt]) = { // bits parsed, version, parsed values
+        val mode = input.substring(0, 1)
+        println(s"mode = $mode")
+        mode.toInt match {
+          case 0 => {
+            val substring = input.substring(1, 16)
+            val subPacketsLength = Integer.parseInt(substring, 2)
+
+            var notYetParsed: String =
+              input.substring(16, 16 + subPacketsLength)
+            var bitsParsed = 0
+            var internalAcc = 0
+            while (bitsParsed < subPacketsLength) {
+              val res = parse(notYetParsed)
+              notYetParsed = notYetParsed.substring(res._1)
+              bitsParsed += res._1
+              internalAcc += res._2
+            }
+            (16 + subPacketsLength, internalAcc, List.empty)
+          }
+          case 1 => {
+            val numSubPackets = Integer.parseInt(input.substring(1, 12), 2)
+            var notYetParsed: String = input.substring(12)
+            var bitsParsed = 0
+            var internalAcc = 0
+            for (i <- 1 to numSubPackets) {
+              val res = parse(notYetParsed)
+              notYetParsed = notYetParsed.substring(res._1)
+              bitsParsed += res._1
+              internalAcc += res._2
+            }
+            (12 + bitsParsed, internalAcc, List.empty)
+          }
+          case _ => throw new Exception("impossible")
+        }
       }
 
       val version = Integer.parseInt(input.substring(0, 3), 2)
       val packetType = Integer.parseInt(input.substring(3, 6), 2)
 
-      val retVal = packetType match {
+      val retval = packetType match {
         // case 0 => {
-
+        //   val packets = 
+        //   (0, 0)
         // }
         // case 1 => {
 
@@ -50,53 +88,15 @@ object PacketDecoder {
 
         // }
         case _ => {
-          val mode = input.substring(6, 7)
-          println(s"mode = $mode")
-          mode.toInt match {
-            case 0 => {
-              val substring = input.substring(7, 22)
-              val subPacketsLength = Integer.parseInt(substring, 2)
-
-              var notYetParsed: String =
-                input.substring(22, 22 + subPacketsLength)
-              var bitsParsed = 0
-              var internalAcc = 0
-              while (bitsParsed < subPacketsLength) {
-                val res = parse(notYetParsed)
-                notYetParsed = notYetParsed.substring(res._1)
-                bitsParsed += res._1
-                internalAcc += res._2
-              }
-              (22 + subPacketsLength, internalAcc)
-            }
-            case 1 => {
-              val numSubPackets = Integer.parseInt(input.substring(7, 18), 2)
-              var notYetParsed: String = input.substring(18)
-              var bitsParsed = 0
-              var internalAcc = 0
-              for (i <- 1 to numSubPackets) {
-                val res = parse(notYetParsed)
-                notYetParsed = notYetParsed.substring(res._1)
-                bitsParsed += res._1
-                internalAcc += res._2
-              }
-              (18 + bitsParsed, internalAcc)
-            }
-            case _ => throw new Exception("impossible")
-          }
+          parseNonLiteral(input.substring(6))
         }
       }
 
-      (retVal._1, retVal._2 + version)
+      (retval._1 + 6, retval._2 + version, List.empty) // part 1
+      // retval
     }
 
     parse(binary)._2
-  }
-
-  def part2(input: String): Int = {
-    val binary = toBinaryNoTruncate(input)
-
-    0
   }
 
   private def toBinaryNoTruncate(hex: String): String = {

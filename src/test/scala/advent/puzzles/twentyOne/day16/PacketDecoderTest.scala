@@ -26,7 +26,6 @@ val input5 = "620080001611562C8802118E34"
 val input6 = "C0015000016115A2E0802F182340"
 val input7 = "A0016C880162017C3686B18A3D4780"
 
-// 7, 1, 1, 3, 
 
 class PacketDecoderTest extends AnyWordSpec with Matchers {
   "PacketDecoder" when {
@@ -69,59 +68,65 @@ class PacketDecoderTest extends AnyWordSpec with Matchers {
     // "part1-7" in {
     //   PacketDecoder.part1(
     //     input7
+    //   ) should be(31)
+    // }
+
+    // "part1 more input" in {
+    //   PacketDecoder.part1(
+    //     Source.fromResource("twentyOne/day16.txt").mkString
     //   ) should be(886)
     // }
 
-    "part1 more input" in {
-      PacketDecoder.part1(
-        Source.fromResource("twentyOne/day16.txt").mkString
-      ) should be(0)
-    }
-
     "part2-1" in {
-      PacketDecoder.part2(
-        input1
-      ) should be(0)
+      PacketDecoder.part1(
+        "C200B40A82"
+      ) should be(3)
     }
 
     "part2-2" in {
-      PacketDecoder.part2(
-        input2
-      ) should be(0)
+      PacketDecoder.part1(
+        "04005AC33890"
+      ) should be(54)
     }
 
     "part2-3" in {
-      PacketDecoder.part2(
-        input3
-      ) should be(0)
+      PacketDecoder.part1(
+        "880086C3E88112"
+      ) should be(7)
     }
 
     "part2-4" in {
-      PacketDecoder.part2(
-        input4
-      ) should be(0)
+      PacketDecoder.part1(
+        "CE00C43D881120"
+      ) should be(9)
     }
 
     "part2-5" in {
-      PacketDecoder.part2(
-        input5
-      ) should be(0)
+      PacketDecoder.part1(
+        "D8005AC2A8F0"
+      ) should be(1)
     }
 
     "part2-6" in {
-      PacketDecoder.part2(
-        input6
+      PacketDecoder.part1(
+        "F600BC2D8F"
       ) should be(0)
     }
 
     "part2-7" in {
-      PacketDecoder.part2(
-        input7
+      PacketDecoder.part1(
+        "9C005AC2F8F0"
       ) should be(0)
     }
 
+    "part2-8" in {
+      PacketDecoder.part1(
+        "9C0141080250320F1802104A08"
+      ) should be(1)
+    }
+
     "part2 more input" in {
-      PacketDecoder.part2(
+      PacketDecoder.part1(
         Source.fromResource("twentyOne/day16.txt").mkString
       ) should be(0)
     }
