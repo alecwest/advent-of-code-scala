@@ -79,6 +79,7 @@ class PacketDecoderTest extends AnyWordSpec with Matchers {
 
     "part2-1" in {
       PacketDecoder.part1(
+        // 1100001000000000101101000000101010000010
         "C200B40A82"
       ) should be(3)
     }
@@ -121,6 +122,8 @@ class PacketDecoderTest extends AnyWordSpec with Matchers {
 
     "part2-8" in {
       PacketDecoder.part1(
+        // 10011100000000010100000100001000000000100101000000110010000011110001100000000010000100000100101000001000
+        // VVVTTTILLLLLLLLLLLLLLLVVVTTTILLLLLLLLLLLVVVTTTAAAAAVVVTTTBBBBBVVVTTTILLLLLLLLLLLVVVTTTCCCCCVVVTTTDDDDD
         "9C0141080250320F1802104A08"
       ) should be(1)
     }
@@ -128,7 +131,7 @@ class PacketDecoderTest extends AnyWordSpec with Matchers {
     "part2 more input" in {
       PacketDecoder.part1(
         Source.fromResource("twentyOne/day16.txt").mkString
-      ) should be(0)
+      ) should be(BigInt("184487454837"))
     }
   }
 }
